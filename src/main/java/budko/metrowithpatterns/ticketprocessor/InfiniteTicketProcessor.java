@@ -15,7 +15,7 @@ public class InfiniteTicketProcessor extends AbstractTicketProcessor {
             throw new ExpiredTicketException("The ticket is expired.");
         }
 
-        // Implement chain of responsibility for checks
+        // внедрение цепочки ответственности
         CheckHandler handler = new InvalidTicketTypeCheckHandler(
                 new ReuseWithin90MinutesCheckHandler(null)
         );

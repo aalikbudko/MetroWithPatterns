@@ -10,7 +10,7 @@ public class TicketProcessor extends AbstractTicketProcessor {
 
     @Override
     protected void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
-        // Implement chain of responsibility for checks
+        // внедрение цепочки ответственности
         CheckHandler handler = new InvalidTicketTypeCheckHandler(
                 new NoTripsCheckHandler(
                         new ReuseWithin90MinutesCheckHandler(null)
