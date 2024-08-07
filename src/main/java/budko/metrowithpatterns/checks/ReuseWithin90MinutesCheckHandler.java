@@ -18,7 +18,7 @@ public class ReuseWithin90MinutesCheckHandler extends CheckHandler {
     @Override
     public void handle(Ticket ticket, TicketType transportType) throws InvalidTicketTypeException, ExpiredTicketException, NoTripsException {
         if (ticket.getLastUsed() != null && Duration.between(ticket.getLastUsed(), LocalDateTime.now()).toMinutes() <= 90) {
-            // No need to deduct trips if reused within 90 minutes
+            // не списываем, если не прошло 90 минут
             return;
         }
         super.handle(ticket, transportType);

@@ -24,7 +24,6 @@ public class InfiniteTicketProcessor extends AbstractTicketProcessor {
 
     @Override
     protected void deductTrip(Ticket ticket) {
-        // No need to deduct trips for infinite tickets
     }
 
     @Override
