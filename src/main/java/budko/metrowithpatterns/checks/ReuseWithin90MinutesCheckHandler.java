@@ -17,11 +17,13 @@ public class ReuseWithin90MinutesCheckHandler extends CheckHandler {
     }
 
     @Override
-    public void handle(Ticket ticket, TicketType transportType) throws InvalidTicketTypeException, ExpiredTicketException, NoTripsException, ReuseWithin90MinutesException {
+    public boolean handle(Ticket ticket, TicketType transportType) throws InvalidTicketTypeException, ExpiredTicketException, NoTripsException, ReuseWithin90MinutesException {
         if (ticket.getLastUsed() != null && Duration.between(ticket.getLastUsed(), LocalDateTime.now()).toMinutes() <= 90) {
             // не списываем, если не прошло 90 минут
-            throw new ReuseWithin90MinutesException("Проходите");
+            System.out.println("Pass");
+            return false;
+            //throw new ReuseWithin90MinutesException("Pass");
         }
-        super.handle(ticket, transportType);
+       return super.handle(ticket, transportType);
     }
 }
