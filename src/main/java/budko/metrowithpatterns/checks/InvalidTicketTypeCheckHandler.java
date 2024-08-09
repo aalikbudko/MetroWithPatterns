@@ -10,10 +10,11 @@ public class InvalidTicketTypeCheckHandler extends CheckHandler {
     }
 
     @Override
-    public void handle(Ticket ticket, TicketType transportType) throws InvalidTicketTypeException, ExpiredTicketException, NoTripsException {
+    public void handle(Ticket ticket, TicketType transportType) throws InvalidTicketTypeException, ExpiredTicketException, NoTripsException, ReuseWithin90MinutesException {
         if (ticket.getType() != TicketType.BOTH && ticket.getType() != transportType) {
             throw new InvalidTicketTypeException("Ticket is not valid for this type of transport.");
         }
         super.handle(ticket, transportType);
+
     }
 }

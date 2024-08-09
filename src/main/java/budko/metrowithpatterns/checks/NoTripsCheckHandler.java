@@ -10,7 +10,7 @@ public class NoTripsCheckHandler extends CheckHandler {
     }
 
     @Override
-    public void handle(Ticket ticket, TicketType transportType) throws NoTripsException, InvalidTicketTypeException, ExpiredTicketException {
+    public void handle(Ticket ticket, TicketType transportType) throws NoTripsException, InvalidTicketTypeException, ExpiredTicketException, ReuseWithin90MinutesException {
         if (ticket.getTrips() <= 0) {
             throw new NoTripsException("No trips left on the ticket.");
         }

@@ -8,7 +8,7 @@ import budko.metrowithpatterns.exceptions.*;
 public class TicketProcessor extends AbstractTicketProcessor {
 
     @Override
-    protected void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    protected void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         // внедрение цепочки ответственности
         CheckHandler handler = new ReuseWithin90MinutesCheckHandler(
                 new InvalidTicketTypeCheckHandler(

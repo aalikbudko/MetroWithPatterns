@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class InfiniteTicketProcessor extends AbstractTicketProcessor {
 
     @Override
-    protected void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    protected void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         InfiniteTicket infiniteTicket = (InfiniteTicket) ticket;
         if (infiniteTicket.getExpirationDate().isBefore(LocalDateTime.now().toLocalDate())) {
             throw new ExpiredTicketException("The ticket is expired.");

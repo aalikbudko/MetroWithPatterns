@@ -10,7 +10,7 @@ public abstract class CheckHandler {
         this.next = next;
     }
 
-    public void handle(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void handle(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         if (next != null) {
             next.handle(ticket, transportType);
         }

@@ -14,21 +14,21 @@ import static org.junit.Assert.fail;
 public class TicketServiceTest {
 
     @Test(expected = NoTripsException.class)
-    public void testNegativeTrips() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testNegativeTrips() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         Ticket ticket = new Ticket(-1, TicketType.METRO);
         service.checkAndDeductTrip(ticket, TicketType.METRO);
     }
 
     @Test(expected = NoTripsException.class)
-    public void testZeroTrips() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testZeroTrips() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         Ticket ticket = new Ticket(0, TicketType.METRO);
         service.checkAndDeductTrip(ticket, TicketType.METRO);
     }
 
     @Test
-    public void testNormalTrips() throws ExpiredTicketException, InvalidTicketTypeException {
+    public void testNormalTrips() throws ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         Ticket ticket = new Ticket(3, TicketType.METRO);
         try {
@@ -40,7 +40,7 @@ public class TicketServiceTest {
     }
 
     @Test
-    public void testValidInfiniteTicket() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testValidInfiniteTicket() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         InfiniteTicket ticket = new InfiniteTicket(LocalDate.now().plusDays(1), TicketType.BOTH);
         ticket = (InfiniteTicket) service.checkAndDeductTrip(ticket, TicketType.METRO);
@@ -48,21 +48,21 @@ public class TicketServiceTest {
     }
 
     @Test(expected = ExpiredTicketException.class)
-    public void testExpiredInfiniteTicket() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testExpiredInfiniteTicket() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         InfiniteTicket ticket = new InfiniteTicket(LocalDate.now().minusDays(1), TicketType.BOTH);
         service.checkAndDeductTrip(ticket, TicketType.METRO);
     }
 
     @Test(expected = InvalidTicketTypeException.class)
-    public void testInvalidTicketType() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testInvalidTicketType() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         Ticket ticket = new Ticket(3, TicketType.GROUND);
         service.checkAndDeductTrip(ticket, TicketType.METRO);
     }
 
     @Test
-    public void testReuseWithin90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testReuseWithin90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         Ticket ticket = new Ticket(3, TicketType.METRO);
         try {
@@ -75,7 +75,7 @@ public class TicketServiceTest {
     }
 
     @Test
-    public void testReuseAfter90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testReuseAfter90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         Ticket ticket = new Ticket(3, TicketType.METRO);
         try {
@@ -88,7 +88,7 @@ public class TicketServiceTest {
     }
 
     @Test
-    public void testInfiniteTicketReuseWithin90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testInfiniteTicketReuseWithin90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         InfiniteTicket ticket = new InfiniteTicket(LocalDate.now().plusDays(1), TicketType.BOTH);
         ticket.setLastUsed(LocalDateTime.now().minusMinutes(30));
@@ -97,7 +97,7 @@ public class TicketServiceTest {
     }
 
     @Test
-    public void testInfiniteTicketReuseAfter90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void testInfiniteTicketReuseAfter90Minutes() throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         TicketService service = new TicketService();
         InfiniteTicket ticket = new InfiniteTicket(LocalDate.now().plusDays(1), TicketType.BOTH);
         ticket.setLastUsed(LocalDateTime.now().minusMinutes(91));

@@ -6,13 +6,13 @@ import budko.metrowithpatterns.ticket.*;
 
 public abstract class AbstractTicketProcessor {
 
-    public void processTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException {
+    public void processTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException {
         checkTicket(ticket, transportType);
         deductTrip(ticket);
         setLastUsedTime(ticket);
     }
 
-    protected abstract void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException;
+    protected abstract void checkTicket(Ticket ticket, TicketType transportType) throws NoTripsException, ExpiredTicketException, InvalidTicketTypeException, ReuseWithin90MinutesException;
 
     protected abstract void deductTrip(Ticket ticket) throws NoTripsException;
 
